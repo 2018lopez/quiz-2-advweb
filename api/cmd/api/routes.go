@@ -16,7 +16,7 @@ func (app *application) routes() *httprouter.Router {
 	router.MethodNotAllowed = http.HandlerFunc(app.methodNotAllowedResponse)
 	router.HandlerFunc(http.MethodGet, "/v1/healthcheck", app.healthcheckHandler)
 	router.HandlerFunc(http.MethodGet, "/v1/random/:id", app.showRandonString)
-	// router.HandlerFunc(http.MethodGet, "/v1/schools/:id", app.showSchoolHandler)
+	router.HandlerFunc(http.MethodGet, "/v1/about", app.showAboutMe)
 
 	return router
 
