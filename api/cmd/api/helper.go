@@ -58,11 +58,12 @@ func (app *application) writeJSON(w http.ResponseWriter, status int, data envelo
 
 }
 
-type Tools struct{}
-
-const randomStringSource = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+_#$-!~"
+// Generate Random String
 
 func (app *application) generateRandomString(length int) string {
+
+	randomStringSource := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+_#$-!~"
+
 	s := make([]rune, length)
 	r := []rune(randomStringSource)
 

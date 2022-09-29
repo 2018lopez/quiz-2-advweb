@@ -3,8 +3,10 @@
 package main
 
 import (
-	"fmt"
+	"crypto/rand"
 	"net/http"
+
+	"quiz-2.imerlopez.net/internal/data"
 )
 
 func (app *application) showRandonString(w http.ResponseWriter, r *http.Request) {
@@ -16,24 +18,35 @@ func (app *application) showRandonString(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	fmt.Fprintf(w, "id %d", id)
-	// //create a new instance of the school struct containing the id we extracted from our url and some sample data
+	rString := generateRandomString(id)
 
-	// school := data.School{
-	// 	ID:       id,
-	// 	CreateAt: time.Now(),
-	// 	Name:     "Apple Tree",
-	// 	Level:    "High School",
-	// 	Contact:  "Anna Smith",
-	// 	Phone:    "601-4412",
-	// 	Address:  "14 Apple Street",
-	// 	Mode:     []string{"blended", "online"},
-	// 	Version:  1,
-	// }
+	// //create a new instance of the data struct containing the id we extracted from our url and some sample data
 
-	// err = app.writeJSON(w, http.StatusOK, envelope{"school": school}, nil)
+	data := data.RandomString{
+		Data: rString,
+	}
 
-	// if err != nil {
-	// 	app.serverErrorResponse(w, r, err)
-	// }
+	err = app.writeJSON(w, http.StatusOK, envelope{"data": data}, nil)
+
+	if err != nil {
+		app.serverErrorResponse(w, r, err)
+	}
+}
+
+func generateRandomString(length int64) string {
+
+	randomStringSource := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+_#$-!~"
+
+	s := make([]rune, length)
+	r := []rune(randomStringSource)
+
+	for i := range s {
+		p, _ := rand.Prime(rand.Reader, len(r))
+		x := p.Uint64()
+		y := uint64(len(r))
+		s[i] = r[x%y]
+	}
+
+	return string(s)
+
 }
