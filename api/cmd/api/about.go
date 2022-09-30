@@ -16,6 +16,7 @@ func (app *application) showAboutMe(w http.ResponseWriter, r *http.Request) {
 		Lived:         "San Ignacio Town, Cayo",
 		CurrentSchool: "University of Belize",
 		Study:         " Bachelor's in Information Technology",
+		Email:         "2018119251@ub.edu.bz",
 		Hobbies:       []string{"Reading", "Football", "Outdoors adventures"},
 		Interests:     []string{"Cyber security", "FullStack Development", "Robotics"},
 	}
